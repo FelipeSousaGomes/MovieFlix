@@ -20,13 +20,15 @@ public class ReviewDTO {
     private String userName;
     private String userEmail;
 
-     public ReviewDTO(User user, Movie movie, Review review) {
+	public ReviewDTO() {}
+
+     public ReviewDTO( Review review) {
 		 this.id = review.getId();
 		 this.text = review.getText();
-		 this.movieId = movie.getId();
-		 this.userId = user.getId();
-		 this.userName = user.getName();
-		 this.userEmail = user.getEmail();
+		 this.movieId = review.getMovie().getId();
+		 this.userId = review.getUser().getId();
+		 this.userName = review.getUser().getName();
+		 this.userEmail = review.getUser().getEmail();
 	 }
 
 	public Long getId() {
