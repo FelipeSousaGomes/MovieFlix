@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class MovieController {
     private MovieService service;
 
 
+    @PreAuthorize("hasAnyRole('ROLE_VISITOR', 'ROLE_MEMBER')")
     @GetMapping("/{id}" )
     public ResponseEntity<MovieDetailsDTO> findByMovieId(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
@@ -33,7 +35,7 @@ public class MovieController {
         return ResponseEntity.ok().body(service.findByReview(id));
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_VISITOR', 'ROLE_MEMBER')")
     @GetMapping
     public ResponseEntity<Page<MovieCardDTO>>findAll(
             @RequestParam(value = "title",defaultValue = "") String title,

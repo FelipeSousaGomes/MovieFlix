@@ -16,6 +16,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     SELECT m FROM Movie m 
     WHERE (:genreId = 0 OR m.genre.id = :genreId) 
     AND LOWER(m.title) LIKE LOWER(CONCAT('%', :title, '%'))
+    ORDER BY m.title
 """)
     Page<Movie> findMoviesByGenreAndTitle(@Param("genreId") Long genreId, @Param("title") String title, Pageable pageable);
 
